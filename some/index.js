@@ -16,6 +16,10 @@ fs.readdir(__dirname)
   .then(result => console.table(result));
 
 
+
+
+  // \n
+  // \r\n
 // const fs = require('fs');
 
 
@@ -133,7 +137,8 @@ fs.readdir(__dirname)
 //     console.log('next tick');
 // })
 
-// process.argv
+// const args = process.argv.slice(2)
+// const firstArgv = args[0]
 
 // fs 
 
