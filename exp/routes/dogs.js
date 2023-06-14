@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 const uriDb = process.env.DB_HOST;
@@ -46,7 +47,25 @@ const Dog = mongoose.model("Dog", {
 
 /* GET dogs listing. */
 router.get("/", function (req, res, next) {
-  res.json(dogs);
+  const payload = {
+    id: 1,
+    name: "Dawid",
+    year: 2002,
+  };
+  const secret = "nodejs8";
+  const token = jwt.sign(payload, secret);
+
+  const verify = jwt.verify(`${token}`, secret);
+  const decode = jwt.decode(
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRhd2lkIiwieWVhciI6MjAwMiwiaWF0IjoxNjg2NTk0MjMzfQ.YlFiM07HTh0r2KAjVM3GZHz7ERuVqlOsU7rvQaJ0Ew8"
+  );
+
+  res.json({
+    token,
+    verify,
+    decode,
+  });
+  // res.json(dogs);
 });
 
 router.get("/add", function (req, res, next) {
@@ -75,6 +94,12 @@ router.get("/add", function (req, res, next) {
     res.json(response);
   });
 });
+
+// const resp = {
+//   accessToken: "123",
+//   refreshToken: "435",
+//   roles: [Role.Admin, Role.ModeratorNews, Role.SuperUser],
+// };
 
 router.get("/:id", (req, res, next) => {
   const { id } = req.params;

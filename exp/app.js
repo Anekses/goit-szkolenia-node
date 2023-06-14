@@ -29,8 +29,8 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
-app.use("/api", routerApi);
-app.use("/", plikIndexHtmlOrJSFrontend);
+// app.use("/api", routerApi);
+// app.use("/", plikIndexHtmlOrJSFrontend);
 
 // error handler
 app.use(function (err, req, res, next) {
