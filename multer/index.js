@@ -12,13 +12,20 @@ const storage = multer.diskStorage({
     cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + "-" + file.originalname);
+    // const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    // cb(null, uniqueSuffix + "-" + file.originalname);
+    getFilenameWithSuffix(file.originalname, cb);
   },
+
   // limits: {
   //   fileSize: 1048576
   // }
 });
+
+function getFilenameWithSuffix(originalname, callback) {
+  const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+  callback(null, uniqueSuffix + "-" + originalname);
+}
 
 const upload = multer({
   storage,
